@@ -1,0 +1,1751 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="./assets/Logo_last.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+MX:wght@100..400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body);"></script>
+    <title>Additional Questions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url("assets/Backgrounds.png");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            object-fit: cover;
+            min-height: 100vh;
+        }
+
+        #heading {
+            text-align: center;
+            background-color: whitesmoke;
+            padding: 10px 20px;
+            margin: 10px auto;
+            color: black;
+            font-size: 1.9em;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            width: fit-content;
+            border-radius: 10px;
+        }
+
+        .activity {
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 20px;
+            height: auto;
+        }
+
+        .sidebar {
+            width: 100px;
+            height: fit-content;
+            max-height: 65vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            color: white;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .questionButtons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .qBtn {
+            padding: 12px 15px;
+            border: none;
+            border-radius: 10px;
+            background-color: #f5f5f5;
+            color: black;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            width: 85%;
+            text-align: center;
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+
+        .qBtn:hover {
+            background-color: #e8e8e8;
+            transform: translateY(-1px);
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .qBtn.active {
+            background-color: #f5f5f5;
+            box-shadow: none;
+            border: 3px solid #000;
+            transform: translateY(2px);
+        }
+
+        .qBtn:active {
+            box-shadow: none;
+            border: 3px solid #000;
+            transform: translateY(2px);
+        }
+
+        .mainContent {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .backGroundMainDiv {
+            position: relative;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 20px 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            min-height: 500px;
+            flex: 1;
+        }
+
+        #backgroundImage {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            opacity: 0.05;
+            z-index: 1;
+        }
+
+        .questionContent {
+            position: relative;
+            z-index: 2;
+        }
+
+        .questionText {
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            color: #333;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .middleSection {
+            display: flex;
+            gap: 2%;
+            align-items: flex-start;
+        }
+
+        .inputMiddleSection {
+            display: flex;
+            gap: 2%;
+            align-items: flex-start;
+            min-height: 300px;
+        }
+
+        .inputImageSection {
+            flex: 0 0 40%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 20px;
+        }
+
+        .inputQuestionSection {
+            flex: 0 0 58%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .inputQuestionText {
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            color: #333;
+            line-height: 1.4;
+            text-align: left;
+        }
+
+        .inputBottomSection {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .inputFeedbackSection {
+            flex: 1;
+        }
+
+        .inputButtonSection {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .imageSection {
+            flex: 0 0 38%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .questionImg {
+            max-width: 100%;
+            max-height: 300px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .optionsSection {
+            flex: 0 0 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .middleSection:not(:has(.imageSection)) .optionsSection {
+            flex: 0 0 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .inputMiddleSection.no-image {
+            display: block;
+        }
+
+        .inputMiddleSection.no-image .inputQuestionSection {
+            flex: none;
+            width: 100%;
+        }
+
+        .optionGrid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .optionBtn {
+            padding: 20px;
+            border: 3px solid #ddd;
+            border-radius: 15px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.6em;
+            text-align: center;
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
+            word-break: break-word;
+            position: relative;
+        }
+
+        .optionBtn:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .optionBtn.correct {
+            background: #d4edda;
+            border-color: #4CAF50;
+            color: #155724;
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        .optionBtn.incorrect {
+            background: #f8d7da;
+            border-color: #f44336;
+            color: #721c24;
+            box-shadow: 0 8px 25px rgba(244, 67, 54, 0.4);
+        }
+
+        .optionImage {
+            max-width: 280px;
+            max-height: 280px;
+            object-fit: contain;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .optionBtn.image-option {
+            min-height: 280px;
+            padding: 15px;
+        }
+
+        .optionBtn.image-option:hover {
+            background: linear-gradient(145deg, #f8f9ff, #e8e9ff);
+        }
+
+        .optionBtn.image-option.correct {
+            background: linear-gradient(145deg, #d4edda, #c3e6cb);
+        }
+
+        .optionBtn.image-option.incorrect {
+            background: linear-gradient(145deg, #f8d7da, #f1c2c7);
+        }
+
+        .inputGrid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .inputContainer {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .inputLabel {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            min-width: 80px;
+        }
+
+        .answerInput {
+            flex: 1;
+            padding: 15px 20px;
+            border: 3px solid #ddd;
+            border-radius: 10px;
+            font-size: 1.1em;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+       .inline-input {
+    display: inline-block;
+    min-width: 50px;
+    width: 50px;  /* start small */
+    padding: 2px 6px;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    font-size: 0.9em;
+    text-align: center;
+    margin: 3px 5px;
+    background: white;
+    transition: all 0.3s ease;
+    box-sizing: content-box;
+}
+        
+
+        .inline-input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+        }
+
+        .inline-input.correct {
+            border-color: #4CAF50;
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .inline-input.incorrect {
+            border-color: #f44336;
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .answerInput:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+        }
+
+        .answerInput.correct {
+            border-color: #4CAF50;
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .answerInput.incorrect {
+            border-color: #f44336;
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .checkBtn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .checkBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .feedbackText {
+            font-size: 1.2em;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+            min-height: 30px;
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .nextBtn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .nextBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        .finalScreen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            border-radius: 20px;
+            color: white;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        .finalImage {
+            max-width: 300px;
+            border-radius: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .activity {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                max-height: 150px;
+                margin-bottom: 20px;
+            }
+
+            .questionButtons {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .qBtn {
+                width: auto;
+                min-width: 50px;
+            }
+
+            .middleSection, .inputMiddleSection {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .inputImageSection, .inputQuestionSection {
+                flex: 1 1 100%;
+            }
+
+            .inputBottomSection {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .inputButtonSection {
+                justify-content: center;
+            }
+
+            .questionText, .inputQuestionText {
+                font-size: 1.2em;
+            }
+
+            .optionGrid {
+                grid-template-rows: 1fr 1fr;
+                gap: 15px;
+            }
+
+            .optionBtn {
+                font-size: 1em;
+                padding: 15px;
+                min-height: 100px;
+            }
+
+            .optionBtn.image-option {
+                min-height: 120px;
+            }
+
+            .optionImage {
+                max-width: 200px;
+                max-height: 200px;
+            }
+
+            .inputContainer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .inputLabel {
+                min-width: auto;
+            }
+
+            .inline-input {
+                width: 40px;
+                font-size: 1em;
+            }
+        }
+
+        .optionGrid.three-options {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .optionGrid.three-options .optionBtn:nth-child(3) {
+            grid-column: 1 / -1;
+        }
+
+        .optionGrid.one-option {
+            grid-template-columns: 1fr;
+        }
+
+        .optionGrid.has-images {
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .optionGrid.has-images .optionBtn {
+            min-height: 160px;
+        }
+
+        .optionGrid.has-images .optionImage {
+            max-width: 260px;
+            max-height: 160px;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .optionGrid.has-images .optionBtn {
+                min-height: 140px;
+            }
+        }
+
+        .fraction-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            vertical-align: middle;
+        }
+
+        .whole-number {
+            font-size: 1em;
+        }
+
+        .fraction {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            font-size: 1em;
+        }
+
+        .numerator,
+        .denominator {
+            line-height: 1;
+            padding: 2px 4px;
+        }
+
+        .fraction-line {
+            width: 100%;
+            height: 2px;
+            background-color: currentColor;
+            margin: 2px 0;
+        }
+
+        .questionText .fraction-container {
+            margin: 0 4px;
+        }
+
+        .optionBtn .fraction-container {
+            justify-content: center;
+        }
+
+        .imageOption {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .imageOption img {
+            max-width: 300px;
+            max-height: 180px;
+            width: 100%;
+            object-fit: contain;
+            border: 3px solid black;
+            border-radius: 12px;
+            transition: border 0.3s ease;
+            padding: 0 1%;
+        }
+
+        .imageOption.correct img {
+            border-color: #4CAF50;
+        }
+
+        .imageOption.incorrect img {
+            border-color: #f44336;
+        }
+
+        .imageOption:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* =============================================
+           FRACTION DIAGRAM STYLES
+           ============================================= */
+        .frac-diagram-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px 0 20px 0;
+        }
+
+        .frac-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+        }
+
+        .frac-big {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 3em;
+            font-weight: bold;
+            line-height: 1;
+            min-width: 60px;
+            margin-right: 10px;
+        }
+
+        .frac-big .frac-line {
+            width: 100%;
+            height: 5px;
+            background: #222;
+            margin: 6px 0;
+            border-radius: 2px;
+        }
+
+        .frac-arrow-middle {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .frac-arrow-middle .frac-equals-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.8em;
+            font-weight: bold;
+            color: #222;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .frac-multiply-label {
+            font-size: 1.05em;
+            font-weight: bold;
+            color: #222;
+            line-height: 1.3;
+            text-align: center;
+        }
+
+        .frac-input-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            margin-left: 10px;
+        }
+
+        .frac-input-box input {
+            width: 75px;
+            height: 58px;
+            border: 3px solid #444;
+            border-radius: 8px;
+            font-size: 1.8em;
+            font-weight: bold;
+            text-align: center;
+            background: white;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .frac-input-box input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .frac-input-box input.correct {
+            border-color: #4CAF50;
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .frac-input-box input.incorrect {
+            border-color: #f44336;
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .frac-input-box .frac-input-line {
+            width: 75px;
+            height: 4px;
+            background: #444;
+            border-radius: 2px;
+        }
+
+        .frac-factor-input {
+            display: inline-block;
+            width: 60px;
+            height: 44px;
+            border: 3px solid #444;
+            border-radius: 8px;
+            font-size: 1.4em;
+            font-weight: bold;
+            text-align: center;
+            background: white;
+            outline: none;
+            transition: all 0.3s ease;
+            vertical-align: middle;
+        }
+        .frac-factor-input:focus { border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.2); }
+        .frac-factor-input.correct { border-color: #4CAF50; background: #d4edda; color: #155724; }
+        .frac-factor-input.incorrect { border-color: #f44336; background: #f8d7da; color: #721c24; }
+
+
+        .inline-dropdown{
+    height:45px;
+    font-size:20px;
+    padding:5px;
+    border-radius:6px;
+    border:2px solid #444;
+    text-align:center;}
+
+/* REPLACE old .root-box and .inline-input with: */
+.sqrt-wrapper {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 3px;
+    position: relative;
+}
+
+.sqrt-radical {
+    font-size: 1.6em;
+    font-family: serif;
+    line-height: 1;
+    color: #1a2a4a;
+    margin-right: -2px;
+    position: relative;
+    top: 2px;
+}
+
+.sqrt-content {
+    border-top: 2.5px solid #1a2a4a;
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 6px 2px 0px;
+}
+
+.sqrt-input {
+    width: 50px;
+    height: 32px;
+    border: 2px solid #1a2a4a;
+    
+    border-radius: 5px 5px 5px 5px;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    background: white;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.sqrt-input:focus { border-color: #667eea; box-shadow: 0 0 0 2px rgba(102,126,234,0.2); }
+.sqrt-input.correct { border-color: #4CAF50 !important; background: #d4edda; color: #155724; }
+.sqrt-input.incorrect { border-color: #f44336 !important; background: #f8d7da; color: #721c24; }
+
+.sqrt-fixed-text {
+    font-size: 1em;
+    font-weight: bold;
+    padding: 0 3px;
+    color: #222;
+}
+
+
+/* bhanu added */
+
+.base-with-power {
+    display: inline-flex;
+    align-items: flex-start;
+    vertical-align: middle;
+    margin: 0 4px;
+}
+
+.base-number {
+    font-size: 1.8em;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.power-input-wrapper {
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row;
+    vertical-align: super;
+    font-size: 0.7em;
+    gap: 3px;
+}
+
+.super-input {
+    width: 35px;
+    height: 25px;
+    font-size: 1em;
+    border: 2px solid #667eea;
+    border-radius: 5px;
+    text-align: center;
+    background: white;
+    outline: none;
+    padding: 0;
+}
+
+
+.power-input-wrapper .mini-frac {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.85em;
+    line-height: 1.1;
+    vertical-align: middle;
+    margin: 0 2px;
+}
+.power-input-wrapper .mini-frac .mini-line {
+    width: 100%;
+    min-width: 12px;
+    height: 1.2px;
+    background: #444;
+    display: block;
+    margin: 1px 0;
+}
+
+
+.inline-dropdown {
+    height: 40px;
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 6px;
+    border: 2px solid #444;
+    text-align: center;
+  
+}
+
+.inline-input {
+    width: 50px;
+    font-size: 1em;
+    margin-left: 5px;
+}
+
+
+/* bhanu ended */
+    </style>
+</head>
+
+<body>
+    <audio id="cheers">
+        <source src="./assets/cheers.mp3" type="audio/mpeg" />
+    </audio>
+    <audio id="points-sound" src="./assets/points.mp3"></audio>
+    <audio id="fail" src="./assets/fail.mp3"></audio>
+
+    <div class="header" style="
+      width: auto;
+      box-shadow: 5px 5px 10px rgb(0, 0, 0);
+      padding-bottom: 10px;
+      background-color: white;
+    ">
+        <img src="./assets/Logo.png" width="5%" style="float: left; margin-top: 25px; text-align: left"
+            class="img-responsive" />
+        <span>
+            <img src="./assets/header.png" width="30%" height="" class="img-responsive" style="text-align: left" />
+        </span>
+    </div>
+
+    <div>
+        <p id="heading">Additional Questions</p>
+    </div>
+
+    <div class="activity">
+        <div class="sidebar">
+            <div class="questionButtons" id="questionButtons"></div>
+        </div>
+
+        <div class="mainContent">
+            <div class="backGroundMainDiv">
+                <div id="questionContent" class="questionContent"></div>
+                <div class="finalScreen" id="finalScreen" style="display:none;">
+                    <div>
+                        <h2>🎉 Well Done!</h2>
+                        <p>You've completed all questions!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentIndex = 0;
+        let selectedAnswer = null;
+        let userInputs = [];
+
+        // ─── Style a single SVG-embedded input by id ───────────────────────────────
+        function styleInputBox(elId, isCorrect) {
+            const color = isCorrect ? '#4CAF50' : '#f44336';
+            const bg    = isCorrect ? '#d4edda' : '#f8d7da';
+            const txt   = isCorrect ? '#155724' : '#721c24';
+            const el = document.getElementById(elId);
+            if (!el) return;
+            el.style.background = bg;
+            el.style.color = txt;
+            el.style.borderColor = color;
+            // SVG-embedded input: style the sibling rect
+            const fo = el.closest('foreignObject');
+            if (fo) {
+                let prev = fo.previousElementSibling;
+                while (prev) {
+                    if (prev.tagName.toLowerCase() === 'rect') {
+                        prev.setAttribute('stroke', color);
+                        prev.setAttribute('fill', bg);
+                        break;
+                    }
+                    prev = prev.previousElementSibling;
+                }
+            } else {
+                // Plain HTML input (e.g. HCF box) — style border directly
+                el.style.borderColor = color;
+            }
+        }
+
+        // ─── ONE universal diagram builder ────────────────────────────────────────
+        //
+        //  Every slot in d (diagram JSON) is either:
+        //    "someValue"  →  rendered as fixed bold text
+        //    ""           →  rendered as an input box, id taken from d.slots in order
+        //
+        //  d fields:
+        //    op        : "×" or "÷"
+        //    fracNum   : left fraction numerator   (fixed or "")
+        //    fracDen   : left fraction denominator (fixed or "")
+        //    topLabel  : label above top arrow     (fixed or "")
+        //    botLabel  : label below bottom arrow  (fixed or "")
+        //    resNum    : right fraction numerator  (fixed or "")
+        //    resDen    : right fraction denominator(fixed or "")
+        //    slots     : array of input ids — consumed left-to-right for every "" slot
+        //    arrowId   : unique string for SVG marker ids
+        //
+        //  Slot consumption order: fracNum, fracDen, topLabel, botLabel, resNum, resDen
+        //
+        function buildDiagramHTML(d) {
+            const op = d.op || '×';
+            const aid = d.arrowId;
+            let slotIdx = 0;
+            const slots = d.slots || [];
+
+            // Returns SVG snippet for a slot: fixed text OR input box
+            // tx, ty = text anchor position  |  rx,ry,rw,rh = rect geometry  |  inputH = input height
+            function slot(value, id, tx, ty, anchor, fontSize, rx, ry, rw, rh, iw, ih) {
+                if (value !== '') {
+                    // Fixed text
+                    return `<text x="${tx}" y="${ty}" text-anchor="${anchor}" font-size="${fontSize}" font-weight="bold" fill="#111">${value}</text>`;
+                } else {
+                    // Input box
+                    const sid = slots[slotIdx++] || id;
+                    return `
+                    <rect id="rect-${sid}" x="${rx}" y="${ry}" width="${rw}" height="${rh}" rx="8" ry="8" fill="white" stroke="#444" stroke-width="3"/>
+                    <foreignObject x="${rx}" y="${ry}" width="${rw}" height="${rh}">
+                      <div xmlns="http://www.w3.org/1999/xhtml" style="width:${rw}px;height:${rh}px;display:flex;align-items:center;justify-content:center;">
+                        <input type="text" id="${sid}" autocomplete="off"
+                          style="width:${iw}px;height:${ih}px;border:none;outline:none;font-size:${fontSize}px;font-weight:bold;text-align:center;background:transparent;"/>
+                      </div>
+                    </foreignObject>`;
+                }
+            }
+
+            // Label slot (above/below arrow)
+            // Fixed: shows "op value" centred above/below arrow
+            // Input: op symbol to the LEFT, input box to its RIGHT — always visible
+            function labelSlot(value, fallbackId, tx, ty, anchor, rx, ry) {
+                if (value !== '') {
+                    return `<text x="${tx}" y="${ty}" text-anchor="${anchor}" font-size="20" font-weight="bold" fill="#222">${op} ${value}</text>`;
+                } else {
+                    const sid = slots[slotIdx++] || fallbackId;
+                    const opX  = 202;   // op symbol ends here (text-anchor=end)
+                    const boxX = 207;   // input box starts just after op symbol
+                    return `
+                    <text x="${opX}" y="${ty}" text-anchor="end" font-size="22" font-weight="bold" fill="#222">${op}</text>
+                    <rect id="rect-${sid}" x="${boxX}" y="${ry}" width="65" height="42" rx="7" ry="7" fill="white" stroke="#444" stroke-width="3"/>
+                    <foreignObject x="${boxX}" y="${ry}" width="65" height="42">
+                      <div xmlns="http://www.w3.org/1999/xhtml" style="width:65px;height:42px;display:flex;align-items:center;justify-content:center;">
+                        <input type="text" id="${sid}" autocomplete="off"
+                          style="width:55px;height:34px;border:none;outline:none;font-size:22px;font-weight:bold;text-align:center;background:transparent;"/>
+                      </div>
+                    </foreignObject>`;
+                }
+            }
+
+            // Slot consumption order: fracNum → fracDen → topLabel → botLabel → resNum → resDen
+            const fracNumSVG = slot(d.fracNum,  'fn',  58,  85, 'middle', 62,  12, 38, 80, 60, 70, 48);
+            const fracDenSVG = slot(d.fracDen,  'fd',  58, 170, 'middle', 62,  12,125, 80, 60, 70, 48);
+            const topSVG     = labelSlot(d.topLabel, 'tl', 245, 22, 'middle', 180,  2);
+            const botSVG     = labelSlot(d.botLabel, 'bl', 245,218, 'middle', 180,198);
+            const resNumSVG  = slot(d.resNum,   'rn', 432,  85, 'middle', 62, 390, 38, 80, 60, 70, 48);
+            const resDenSVG  = slot(d.resDen,   'rd', 432, 170, 'middle', 62, 390,116, 80, 60, 70, 48);
+
+            return `
+            <div style="display:flex; justify-content:center; align-items:center;">
+              <svg width="520" height="230" viewBox="0 0 520 230" style="overflow:visible; max-width:100%;">
+                <defs>
+                  <marker id="atop-${aid}" markerWidth="10" markerHeight="10" refX="9" refY="3.5" orient="auto">
+                    <path d="M0,0 L0,7 L10,3.5 z" fill="#333"/>
+                  </marker>
+                  <marker id="abot-${aid}" markerWidth="10" markerHeight="10" refX="9" refY="3.5" orient="auto">
+                    <path d="M0,0 L0,7 L10,3.5 z" fill="#333"/>
+                  </marker>
+                </defs>
+
+                <!-- LEFT fraction -->
+                ${fracNumSVG}
+                <line x1="12" y1="103" x2="104" y2="103" stroke="#111" stroke-width="5"/>
+                ${fracDenSVG}
+
+                <!-- = sign -->
+                <text x="245" y="128" text-anchor="middle" font-size="52" font-weight="bold" fill="#222">=</text>
+
+                <!-- TOP label above top arrow -->
+                ${topSVG}
+
+                <!-- TOP arrow -->
+                <path d="M 108 78 Q 255 28 388 78" stroke="#333" stroke-width="2.8" fill="none" marker-end="url(#atop-${aid})"/>
+
+                <!-- BOTTOM arrow -->
+                <path d="M 108 155 Q 255 205 388 155" stroke="#333" stroke-width="2.8" fill="none" marker-end="url(#abot-${aid})"/>
+
+                <!-- BOTTOM label below bottom arrow -->
+                ${botSVG}
+
+                <!-- RIGHT fraction numerator -->
+                ${resNumSVG}
+
+                <!-- Fraction line -->
+                <line x1="390" y1="108" x2="475" y2="108" stroke="#444" stroke-width="4"/>
+
+                <!-- RIGHT fraction denominator -->
+                ${resDenSVG}
+
+              </svg>
+            </div>`;
+        }
+
+        let data = [
+
+ 
+  {
+    "questionNo": 1,
+    "question": [
+      "A rectangular glass aquarium has a flat base measuring 40 cm in length and 30 cm in width. It is partially filled with water. A solid metal cylinder with a base radius of 10 cm is carefully lowered into the tank until it rests flat on the bottom, completely submerged. The water level in the aquarium rises by exactly 5 cm without overflowing. Calculate the exact total surface area of the metal cylinder."
+    ],
+    "options": [
+      "200π + 1200 cm²",
+      "100π + 600 cm²",
+      "400π + 1200 cm²",
+      "200π + 6000 cm²"
+    ],
+    "correct": 0
+  },
+  {
+    "questionNo": 2,
+    "question": [
+      "A fully enclosed cylindrical water tower has a diameter of 2 m and a height of 7 m, and it is completely full of water. The tower is completely drained into an empty rectangular concrete reservoir that is exactly 11 m long and 5 m wide. Using the fraction ", {
+        "fraction": {
+          "numerator": "22",
+          "denominator": "7"
+        }
+      }, " for π, calculate the total \"wet\" interior surface area of the rectangular reservoir (the area of the concrete base and the 4 concrete walls that are in direct contact with the water).",
+      "<br>The total wet surface area is _____ m²."
+    ],
+    "input": [
+      ""
+    ],
+    "correct": [
+      "67.8"
+    ]
+  },
+  {
+    "questionNo": 3,
+    "question": [
+      "An engineering component is manufactured as a hollow solid block. The outer boundary is a tall rectangular prism with a perfectly square base (side length 10 cm). A cylindrical hole with a radius of 3 cm is drilled perfectly straight through the centre from top to bottom.",
+      "<br>The total volume of the solid material making up this hollow component is exactly 1434.8 cm³. Using 3.14 for π, calculate the total exposed surface area of the component (this includes the top and bottom faces, the 4 outer rectangular walls, and the curved inner cylindrical wall)."
+    ],
+    "options": [
+      "1176.80 cm²",
+      "1320.28 cm²",
+      "1248.54 cm²",
+      "1014.28 cm²"
+    ],
+    "correct": 1
+  }
+
+
+
+        ];
+
+        window.onload = () => {
+            renderButtons();
+            renderQuestion();
+        };
+
+        function renderButtons() {
+            const container = document.getElementById('questionButtons');
+            container.innerHTML = '';
+            data.forEach((item, index) => {
+                const btn = document.createElement('button');
+                btn.innerText = item.questionNo;
+                btn.className = 'qBtn' + (index === currentIndex ? ' active' : '');
+                btn.onclick = () => {
+                    currentIndex = index;
+                    selectedAnswer = null;
+                    userInputs = [];
+                    renderQuestion();
+                };
+                container.appendChild(btn);
+            });
+            setTimeout(() => {
+                const activeBtn = container.querySelector('.qBtn.active');
+                if (activeBtn) {
+                    activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
+            }, 100);
+        }
+
+        // function processQuestionContent(questionContent) {
+        //     if (typeof questionContent === 'string') return questionContent;
+        //     if (Array.isArray(questionContent)) {
+        //         return questionContent.map(item => {
+        //             if (typeof item === 'string') return item;
+        //             else if (item.fraction) return renderFraction(item.fraction);
+        //             return '';
+        //         }).join('');
+        //     }
+        //     return questionContent;
+        // }
+
+        function processPowerFrac(pf) {
+    const { fixedBase, fixedNum, fixedDen } = pf;
+    return `<span style="display:inline-flex;align-items:flex-start;vertical-align:middle;">
+        <span style="font-size:1.1em;font-weight:bold;">${fixedBase}</span>
+        <span style="display:inline-flex;flex-direction:column;align-items:center;
+            font-size:0.5em;margin-left:3px;margin-top:-20px;gap:0px;line-height:1.2;">
+            <span style="font-size:1em;font-weight:bold;">${fixedNum}</span>
+            <span style="width:100%;min-width:28px;height:1.5px;background:#444;display:block;margin:1px 0;"></span>
+            <span style="font-size:1em;font-weight:bold;">${fixedDen}</span>
+        </span>
+    </span>`;
+}
+
+        function renderFraction(fractionObj){
+
+    const {whole,numerator,denominator} = fractionObj;
+
+    let html = '<span class="fraction-container">';
+
+    if(whole){
+        html += `<span class="whole-number">${whole}</span>`;
+    }
+
+    function renderPart(part){
+    if(typeof part === "string") return part;
+
+    if(Array.isArray(part)){
+        return part.map(p=>{
+            if(typeof p === "string") return p;
+            if(p.fraction) return renderFraction(p.fraction);
+            if(p.root) return renderRoot(p.root);
+           if(p.sup) return `___sup___`;// ← ADD THIS
+            return "";
+        }).join("");
+    }
+
+    if(part.fraction){
+        return renderFraction(part.fraction);
+    }
+
+    return part;
+}
+
+    if(numerator && denominator){
+        html += `
+        <span class="fraction">
+            <span class="numerator">${renderPart(numerator)}</span>
+            <span class="fraction-line"></span>
+            <span class="denominator">${renderPart(denominator)}</span>
+        </span>`;
+    }
+
+    html += '</span>';
+
+    return html;
+}
+
+        function renderQuestion() {
+            const questionContent = document.getElementById('questionContent');
+            const finalScreen = document.getElementById('finalScreen');
+            const questionButtons = document.getElementById('questionButtons');
+
+            if (currentIndex >= data.length) {
+                questionContent.style.display = 'none';
+                questionButtons.style.display = 'none';
+                finalScreen.style.display = 'flex';
+                return;
+            }
+
+            const q = data[currentIndex];
+            let html = '';
+
+            if (q.input || q.diagram || q.dropdown) {
+                const hasImage = q.image ? true : false;
+                const sectionClass = hasImage ? 'inputMiddleSection' : 'inputMiddleSection no-image';
+
+                html += `<div class='${sectionClass}'>`;
+
+                if (q.image) {
+                    html += `<div class="inputImageSection">
+                                <img src="${q.image}" alt="question" class="questionImg"/>
+                             </div>`;
+                }
+
+                html += `<div class="inputQuestionSection">`;
+
+                // Question text
+                let questionText = processQuestionContent(q.question);
+                let inputIndex = 0;
+                let dropdownIndex = 0;
+
+questionText = questionText
+.replace(/_____/g, () => {
+    return `<input type="text" class="inline-input" id="input_${inputIndex++}" />`;
+})
+.replace(/___sup___/g, () => {
+    return `<span class="power-input-wrapper"><input type="text" class="super-input inline-input" id="input_${inputIndex++}" /></span>`;
+})
+.replace(/___dropdown___/g, () => {
+
+    const options = q.dropdown[dropdownIndex];
+    let html = `<select class="inline-dropdown" id="input_${inputIndex++}">`;
+    html += `<option value=""> </option>`;
+
+    options.forEach(opt=>{
+        html += `<option value="${opt}">${opt}</option>`;
+    });
+
+    html += `</select>`;
+    dropdownIndex++;
+
+    return html;
+});
+                html += `<div class='questionText'>${questionText}</div>`;
+
+                // Diagram — single unified builder, fully JSON-driven
+                if (q.diagram) {
+                    html += `<div class="frac-diagram-wrapper">`;
+                    html += buildDiagramHTML(q.diagram);
+
+                    // HCF input — uses dedicated q.hcfId
+                    if (q.hcf && q.hcfId) {
+                        html += `<div style="display:flex; align-items:center; gap:10px; margin-top:50px; font-size:1.4em; font-weight:bold;">
+                            <span style="font-style:italic;">HCF =</span>
+                            <input type="text" id="${q.hcfId}" autocomplete="off"
+                                style="width:65px; height:44px; border:3px solid #444; border-radius:8px; font-size:1em; font-weight:bold; text-align:center; outline:none;"/>
+                        </div>`;
+                    }
+
+                    html += `</div>`;
+                }
+
+                html += `</div>`;
+                html += `</div>`;
+
+                html += `<div class='inputBottomSection'>`;
+                html += `<div class='inputFeedbackSection'><p class="feedbackText" id="feedbackText"></p></div>`;
+                html += `<div class='inputButtonSection'>
+                            <button class="checkBtn" onclick="handleInputCheck()">Submit</button>
+                            <button class="nextBtn" id="nextBtn" style="display:none;" onclick="handleNext()">Next</button>
+                         </div>`;
+                html += `</div>`;
+
+            } else {
+                // MCQ
+                let questionText = processQuestionContent(q.question);
+                html += `<h3 class='questionText'>${questionText}</h3>`;
+                html += `<div class='middleSection'>`;
+
+                if (q.image) {
+                    html += `<div class="imageSection"><img src="${q.image}" alt="question" class="questionImg"/></div>`;
+                }
+
+                html += `<div class="optionsSection${!q.image ? ' full-width' : ''}">`;
+
+                const hasImages = Array.isArray(q.options) && q.options.some(opt => typeof opt === 'string' && /\.(png|jpe?g|svg)$/i.test(opt));
+                let gridClass = 'optionGrid';
+                if (hasImages) gridClass += ' has-images';
+                if (q.options.length === 1) gridClass += ' one-option';
+                else if (q.options.length === 3) gridClass += ' three-options';
+
+                html += `<div class="${gridClass}">`;
+                q.options.forEach((opt, idx) => {
+                    const isImage = typeof opt === 'string' && /\.(png|jpe?g|svg)$/i.test(opt);
+                    if (isImage) {
+                        html += `<div class="imageOption" onclick="handleOptionClick(${idx})"><img src="assets/${opt}" alt="option-${idx}"></div>`;
+                    } else if (Array.isArray(opt)) {
+    let optionHTML = opt.map(item => {
+        if (typeof item === "string") return item;
+        if (item.fraction) return renderFraction(item.fraction);
+        if (item.root) return renderRoot(item.root);
+        if (item.powerFrac) return processPowerFrac(item.powerFrac);
+        return "";
+    }).join("");
+    html += `<button class="optionBtn" onclick="handleOptionClick(${idx})">${optionHTML}</button>`;
+    } else if (typeof opt === "object" && opt.powerFrac) {   // 👈 ADD THIS LINE
+        html += `<button class="optionBtn" onclick="handleOptionClick(${idx})">${processPowerFrac(opt.powerFrac)}</button>`; 
+                    } else if (typeof opt === "object" && opt.fraction) {
+                        html += `<button class="optionBtn" onclick="handleOptionClick(${idx})">${renderFraction(opt.fraction)}</button>`;
+                    } else if (typeof opt === "object" && opt.root) {
+    html += `<button class="optionBtn" onclick="handleOptionClick(${idx})">${renderRoot(opt.root)}</button>`;
+} else {
+    html += `<button class="optionBtn" onclick="handleOptionClick(${idx})">${opt}</button>`;
+}
+                });
+
+                html += `</div>`;
+                html += `<div style='display:flex'>
+                            <div style='width:50%'><p class="feedbackText" id="feedbackText"></p></div>
+                            <div style='width:50%'><button class="nextBtn" id="nextBtn" style="display:none;" onclick="handleNext()">Next</button></div>
+                         </div>`;
+                html += `</div></div>`;
+            }
+
+            questionContent.innerHTML = html;
+            questionContent.style.display = 'block';
+            finalScreen.style.display = 'none';
+
+            // Attach Enter key to all inputs on the page
+            if (q.input || q.diagram || q.dropdown) {
+                document.querySelectorAll('input[type="text"]').forEach(inp => {
+                    inp.addEventListener("keyup", e => { if (e.key === "Enter") handleInputCheck(); });
+                });
+                document.querySelectorAll('input.inline-input').forEach(inp => {
+    inp.addEventListener('input', () => autoGrowInput(inp));
+});
+            }
+
+            renderButtons();
+        }
+
+        //bhanu added start 
+        function renderRoot(rootObj) {
+
+    if (rootObj.fraction) {
+    const innerHTML = renderFraction(rootObj.fraction);
+    return `<span style="display:inline-flex;align-items:flex-end;vertical-align:middle;margin:0 4px;">
+        <span class="sqrt-wrapper">
+            <span class="sqrt-radical" style="font-size:2.2em;">√</span>
+            <span class="sqrt-content" style="font-size:1.3em; padding: 4px 8px 2px 2px;">
+                ${innerHTML}
+            </span>
+        </span>
+    </span>`;
+}
+
+    const { index, value, coeff, inputId , nested} = rootObj;
+
+
+    if (nested) {
+        let indexHTML = (index && index !== 2)
+            ? `<span style="font-size:0.8em;font-weight:bold;color:#1a2a4a;position:relative;top:-12px;margin-right:-2px;">${index}</span>`
+            : '';
+        const innerHTML = renderRoot(nested.root);
+        return `<span style="display:inline-flex;align-items:flex-end;vertical-align:middle;margin:0 4px;">
+            <span class="sqrt-wrapper">
+                ${indexHTML}
+                <span class="sqrt-radical">√</span>
+                <span class="sqrt-content">
+                    ${innerHTML}
+                </span>
+            </span>
+        </span>`;
+    }
+
+    // If it's just showing a value (like √2 with coeff 3 = 3√2)
+   if (value !== undefined && !inputId) {
+    let coeffHTML = coeff ? `<span class="sqrt-fixed-text">${coeff}</span>` : '';
+    let indexHTML = (index && index !== 2) 
+        ? `<span style="font-size:0.8em;font-weight:bold;color:#1a2a4a;position:relative;top:-12px;margin-right:-2px;">${index}</span>` 
+        : '';
+
+    // ← FIX: value can be a string OR an array containing nested root/fraction objects
+    let innerHTML;
+    if (Array.isArray(value)) {
+        innerHTML = value.map(part => {
+            if (typeof part === 'string') return part;
+            if (part.root) return renderRoot(part.root);
+            if (part.fraction) return renderFraction(part.fraction);
+            return '';
+        }).join('');
+    } else {
+        innerHTML = value;
+    }
+
+    return `<span style="display:inline-flex;align-items:flex-end;vertical-align:middle;margin:0 4px;">
+        ${coeffHTML}
+        <span class="sqrt-wrapper">
+            ${indexHTML}
+            <span class="sqrt-radical">√</span>
+            <span class="sqrt-content">
+                <span class="sqrt-fixed-text">${innerHTML}</span>
+            </span>
+        </span>
+    </span>`;
+}
+
+    // Input box version
+    // Input box version
+// Input box version
+if (inputId) {
+    let indexHTML = '';
+    if (rootObj.indexInputId) {
+        // index is also an input box
+        indexHTML = `<input type="text" id="${rootObj.indexInputId}" class="sqrt-input" autocomplete="off"
+            style="width:28px; height:24px; font-size:0.75em; border:2px solid #1a2a4a; border-radius:4px;
+            position:relative; top:-10px; margin-right:-3px; z-index:1; text-align:center;
+            background:white; outline:none; padding:0;"/>`;
+    } else if (rootObj.index && rootObj.index !== 2) {
+        indexHTML = `<span style="font-size:0.6em; font-weight:bold; color:#1a2a4a; position:relative; top:-8px; margin-right:-2px;">${rootObj.index}</span>`;
+    }
+    return `<span class="sqrt-wrapper" style="align-items:flex-end;">
+        ${indexHTML}
+        <span class="sqrt-radical">√</span>
+        <span class="sqrt-content">
+            <input type="text" id="${inputId}" class="sqrt-input" autocomplete="off" />
+        </span>
+    </span>`;
+}
+
+    return '';
+}
+function processQuestionContent(questionContent) {
+    if (typeof questionContent === 'string') return questionContent;
+
+    if (Array.isArray(questionContent)) {
+        return questionContent.map(item => {
+
+            if (typeof item === 'string') return item;
+
+            if (item.fraction) return renderFraction(item.fraction);
+
+            if (item.root) return renderRoot(item.root);
+
+            if (item.powerFrac) {
+                const {baseInputId, numInputId, denInputId, fixedBase, fixedNum, fixedDen} = item.powerFrac;
+
+                const baseHTML = fixedBase
+                    ? `<span style="font-size:1em;font-weight:bold;">${fixedBase}</span>`
+                    : `<input type="text" id="${baseInputId}" class="inline-input" style="width:45px;"/>`;
+
+                const numHTML = fixedNum
+                    ? `<span style="font-size:1em;font-weight:bold;">${fixedNum}</span>`
+                    : `<input type="text" id="${numInputId}" class="inline-input" style="width:30px;height:22px;font-size:0.8em;padding:0;margin:0;"/>`;
+
+                const denHTML = fixedDen
+                    ? `<span style="font-size:1em;font-weight:bold;">${fixedDen}</span>`
+                    : `<input type="text" id="${denInputId}" class="inline-input" style="width:30px;height:22px;font-size:0.8em;padding:0;margin:0;"/>`;
+
+                return `<span style="display:inline-flex;align-items:flex-start;vertical-align:middle;">
+    ${fixedBase 
+        ? `<span style="font-size:1.1em;font-weight:bold;">${fixedBase}</span>`
+        : `<input type="text" id="${baseInputId}" class="inline-input" style="width:55px;height:45px;font-size:1.1em;"/>`
+    }
+    <span style="display:inline-flex;flex-direction:column;align-items:center;
+        font-size:0.5em;margin-left:3px;margin-top:-20px;gap:0px;line-height:1.2;">
+        ${numHTML}
+        <span style="width:100%;min-width:28px;height:1.5px;background:#444;display:block;margin:1px 0;"></span>
+        ${denHTML}
+    </span>
+</span>`;
+            }
+
+            return '';
+        }).join('');
+    }
+
+    return questionContent;
+}
+//bhanu added end 
+
+        function handleInputCheck() {
+            const q = data[currentIndex];
+            const feedback = document.getElementById('feedbackText');
+            const nextBtn = document.getElementById('nextBtn');
+            const checkBtn = document.querySelector('.checkBtn');
+            const pointSound = document.getElementById("points-sound");
+            const failSound = document.getElementById("fail");
+
+            userInputs = [];
+
+            // ── Build [id, correctAnswer] pairs ───────────────────────────────────
+            // For diagram questions: slots array maps 1:1 to correct array
+            // For inline input questions: input_0..N map to correct array
+            let pairs = [];
+
+            if (q.diagram) {
+                // diagram slots map 1:1 with correct array
+                q.diagram.slots.forEach((id, i) => pairs.push([id, q.correct[i]]));
+                // HCF box is separate — appended after slots
+                if (q.hcf && q.hcfId) {
+                    pairs.push([q.hcfId, q.correct[q.diagram.slots.length]]);
+                }
+            } else if (q.input || q.dropdown) {
+
+    let totalInputs = q.correct.length;
+
+    for (let i = 0; i < totalInputs; i++) {
+
+        // last value = power input only if question has a power field
+        if (q.hasPower && i === totalInputs - 1) {
+            pairs.push([`power_0`, q.correct[i]]);
+        } else {
+            pairs.push([`input_${i}`, q.correct[i]]);
+        }
+    }
+} else if (q.dropdown) {
+    q.dropdown.forEach((_, i) => pairs.push([`input_${i}`, q.correct[i]]));
+}
+
+            // ── Collect userInputs from the pairs ──────────────────────────────────
+            pairs.forEach(([elId]) => {
+                const el = document.getElementById(elId);
+                userInputs.push(el ? el.value.trim().toLowerCase() : '');
+            });
+
+            // ── Check and style each input ─────────────────────────────────────────
+            let allCorrect = true;
+
+// Handle unordered indices
+let unordered = q.unorderedIndices || [];
+
+let checked = new Set();
+
+pairs.forEach(([elId, correctAnswer], i) => {
+
+    if(unordered.includes(i)){
+        return; // skip for now
+    }
+
+    const isCorrect = answersMatch(userInputs[i], correctAnswer.trim().toLowerCase());
+
+    if(!isCorrect) allCorrect = false;
+
+    styleInputBox(elId,isCorrect);
+
+    checked.add(i);
+});
+
+// check unordered group
+if(unordered.length){
+
+    const userVals = unordered.map(i => userInputs[i]);
+const correctVals = unordered.map(i => q.correct[i].toLowerCase());
+
+// Try matching each user value to a correct value (numeric-aware)
+const usedCorrect = new Set();
+const match = userVals.every(uv => {
+    const idx = correctVals.findIndex((cv, ci) => !usedCorrect.has(ci) && answersMatch(uv, cv));
+    if (idx !== -1) { usedCorrect.add(idx); return true; }
+    return false;
+});
+
+    unordered.forEach(i=>{
+        styleInputBox(pairs[i][0],match);
+    });
+
+    if(!match) allCorrect = false;
+}
+
+            if (allCorrect) {
+                pointSound.currentTime = 0;
+                pointSound.play();
+                feedback.innerHTML = `<span class='emoji'>✅</span> Correct! Great job!`;
+                feedback.style.color = '#4CAF50';
+
+                // Disable all inputs including HCF
+                pairs.forEach(([elId]) => {
+                    const el = document.getElementById(elId);
+                    if (el) el.disabled = true;
+                });
+                if (q.hcfId) {
+                    const hcfEl = document.getElementById(q.hcfId);
+                    if (hcfEl) hcfEl.disabled = true;
+                }
+
+                if (checkBtn) checkBtn.style.display = 'none';
+                nextBtn.innerText = currentIndex + 1 < data.length ? 'Next' : 'Finish';
+                nextBtn.style.display = 'block';
+            } else {
+                failSound.currentTime = 0;
+                failSound.play();
+                feedback.innerHTML = `<span class='emoji'>❌</span> Try again!`;
+                feedback.style.color = '#f44336';
+            }
+        }
+
+        function handleOptionClick(index) {
+            const pointSound = document.getElementById("points-sound");
+            const failSound = document.getElementById("fail");
+            if (selectedAnswer !== null) return;
+
+            selectedAnswer = index;
+            const q = data[currentIndex];
+            const feedback = document.getElementById('feedbackText');
+            const nextBtn = document.getElementById('nextBtn');
+            const optionBtns = document.querySelectorAll('.optionBtn, .imageOption');
+
+            optionBtns.forEach(btn => { btn.style.pointerEvents = 'none'; });
+
+            if (index === q.correct) {
+                pointSound.currentTime = 0;
+                pointSound.play();
+                optionBtns[index].classList.add('correct');
+                feedback.innerHTML = `<span class='emoji'>✅</span> Correct! Great job!`;
+                feedback.style.color = '#4CAF50';
+                nextBtn.innerText = currentIndex + 1 < data.length ? 'Next' : 'Finish';
+                nextBtn.style.display = 'block';
+            } else {
+                failSound.currentTime = 0;
+                failSound.play();
+                optionBtns[index].classList.add('incorrect');
+                feedback.innerHTML = `<span class='emoji'>❌</span> Try again!`;
+                feedback.style.color = '#f44336';
+                optionBtns.forEach((btn, idx) => {
+                    if (idx !== index) btn.style.pointerEvents = 'auto';
+                });
+                selectedAnswer = null;
+            }
+        }
+
+        function handleNext() {
+            if (currentIndex + 1 < data.length) {
+                currentIndex++;
+                selectedAnswer = null;
+                userInputs = [];
+                renderQuestion();
+            } else {
+                currentIndex++;
+                renderQuestion();
+            }
+        }
+function answersMatch(userVal, correctVal) {
+    if (userVal === correctVal) return true;
+
+    // Try numeric comparison — handles 19.50 vs 19.500, 085 vs 85, etc.
+    const userNum = parseFloat(userVal);
+    const correctNum = parseFloat(correctVal);
+    if (!isNaN(userNum) && !isNaN(correctNum) && userNum === correctNum) return true;
+
+    return false;
+}
+function autoGrowInput(input) {
+    let measurer = document.getElementById('__input_measurer__');
+    if (!measurer) {
+        measurer = document.createElement('span');
+        measurer.id = '__input_measurer__';
+        measurer.style.cssText = `
+            position: absolute;
+            visibility: hidden;
+            white-space: pre;
+            font-family: Arial, sans-serif;
+            padding: 0 6px;
+        `;
+        document.body.appendChild(measurer);
+    }
+    const computedStyle = window.getComputedStyle(input);
+    measurer.style.fontSize = computedStyle.fontSize;
+    measurer.textContent = input.value || '';
+    const newWidth = Math.max(50, measurer.offsetWidth + 16);
+    input.style.width = newWidth + 'px';
+}
+    </script>
+</body>
+</html>
